@@ -7,8 +7,7 @@ document.getElementById('searchButton').addEventListener('click', async () => {
     }
 
     try {
-        // Fetch weather data from OpenWeatherMap API
-        const apiKey = 'adbac17f54a6c9643b5a46d647e4db7e'; // Your OpenWeatherMap API key
+        const apiKey = 'adbac17f54a6c9643b5a46d647e4db7e';
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&units=metric&lang=ru&appid=${apiKey}`);
         
         if (!response.ok) {
@@ -17,18 +16,15 @@ document.getElementById('searchButton').addEventListener('click', async () => {
 
         const weatherData = await response.json();
 
-        // Update weather forecast
         const weatherOutput = document.getElementById('forecastText');
         weatherOutput.textContent = `Температура: ${weatherData.main.temp}°C, ${weatherData.weather[0].description}`;
 
-        // Provide clothing advice based on temperature and weather conditions
         const clothingAdvice = document.getElementById('adviceText');
         const temp = weatherData.main.temp;
-        const weatherCondition = weatherData.weather[0].main.toLowerCase(); // e.g., "rain", "snow", "clear"
+        const weatherCondition = weatherData.weather[0].main.toLowerCase();
 
         let advice = '';
 
-        // Temperature-based advice
         if (temp > 25) {
             advice = 'На улице жарко. Наденьте легкую одежду.';
         } else if (temp > 15) {
@@ -39,7 +35,6 @@ document.getElementById('searchButton').addEventListener('click', async () => {
             advice = 'Холодно. Наденьте зимнюю одежду.';
         }
 
-        // Weather condition-based advice
         if (weatherCondition.includes('rain')) {
             advice += ' Не забудьте взять зонт, так как идет дождь.';
         } else if (weatherCondition.includes('snow')) {
